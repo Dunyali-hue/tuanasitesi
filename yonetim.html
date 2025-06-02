@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yönetim - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004466;
+      margin-bottom: 2rem;
+    }
+
+    .yonetim-kartlar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .kart {
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      padding: 1rem;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .kart .ikon {
+      font-size: 4rem;
+      color: #004466;
+      margin-bottom: 1rem;
+    }
+
+    .isim {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #004466;
+    }
+
+    .gorev {
+      color: #333;
+      margin-top: 5px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+      text-align: center;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>👥 Yönetim Kadromuz</h1>
+  </header>
+
+  <main>
+    <h2>Tuana Park Rezidans Evleri</h2>
+    <div class="yonetim-kartlar">
+
+      <div class="kart">
+        <div class="ikon"><i class="fas fa-user-tie"></i></div>
+        <div class="isim">Atilla ÖZKAN</div>
+        <div class="gorev">Yönetim Kurulu Başkanı</div>
+      </div>
+
+      <div class="kart">
+        <div class="ikon"><i class="fas fa-user-tie"></i></div>
+        <div class="isim">Eymen GÜREL</div>
+        <div class="gorev">Başkan Yardımcısı</div>
+      </div>
+
+      <div class="kart">
+        <div class="ikon"><i class="fas fa-user-tie"></i></div>
+        <div class="isim">Atılgan ERÖZKAN</div>
+        <div class="gorev">Başkan Yardımcısı</div>
+      </div>
+
+    </div>
+
+    <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+  </main>
+
+</body>
+</html>

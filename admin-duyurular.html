@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Duyuru Ekle</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background: #f2f2f2;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #004466;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #004466;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #006699;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #eee;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .sil-btn {
+      float: right;
+      background: red;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <script src="js/auth.js"></script>
+
+  <header>
+    <h1>📢 Admin - Duyuru Ekle</h1>
+  </header>
+
+  <nav>
+    <a href="admin-panel.html">⬅️ Admin Panel</a>
+    <a href="duyurular.html">🔍 Duyurular</a>
+  </nav>
+
+  <main>
+    <h2>Yeni Duyuru</h2>
+    <input type="text" id="baslik" placeholder="Duyuru Başlığı">
+    <textarea id="icerik" rows="4" placeholder="Duyuru İçeriği"></textarea>
+    <button onclick="duyuruEkle()">➕ Ekle</button>
+
+    <h3>Mevcut Duyurular</h3>
+    <ul id="duyuruListesi"></ul>
+  </main>
+
+  <script>
+    function duyuruEkle() {
+      const baslik = document.getElementById("baslik").value.trim();
+      const icerik = document.getElementById("icerik").value.trim();
+
+      if (!baslik || !icerik) {
+        alert("Lütfen başlık ve içerik girin.");
+        return;
+      }
+
+      const yeni = { baslik, icerik };
+      const duyurular = JSON.parse(localStorage.getItem("duyurular")) || [];
+      duyurular.unshift(yeni);
+      localStorage.setItem("duyurular", JSON.stringify(duyurular));
+      window.location.reload();
+    }
+
+    function duyuruSil(index) {
+      const duyurular = JSON.parse(localStorage.getItem("duyurular")) || [];
+      duyurular.splice(index, 1);
+      localStorage.setItem("duyurular", JSON.stringify(duyurular));
+      window.location.reload();
+    }
+
+    window.onload = () => {
+      const duyurular = JSON.parse(localStorage.getItem("duyurular")) || [];
+      const liste = document.getElementById("duyuruListesi");
+
+      duyurular.forEach((d, i) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${d.baslik}</strong><br>${d.icerik}<button class='sil-btn' onclick='duyuruSil(${i})'>Sil</button>`;
+        liste.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

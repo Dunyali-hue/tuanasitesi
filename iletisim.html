@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İletişim - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #004466;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #006699;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📬 İletişim</h1>
+  </header>
+
+  <main>
+    <h2>Bize Ulaşın</h2>
+
+    <form action="https://formspree.io/f/mqabkzrz" method="POST">
+      <label for="isim">Adınız</label>
+      <input type="text" id="isim" name="isim" required>
+
+      <label for="email">E-posta</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="mesaj">Mesajınız</label>
+      <textarea id="mesaj" name="mesaj" rows="5" required></textarea>
+
+      <button type="submit">Gönder</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Galeri Yönetimi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f9f9f9; }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background: #f2f2f2;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: #004466;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    .preview img {
+      width: 120px;
+      margin: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 5px solid white;
+      border-radius: 8px;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-nav span {
+      color: white;
+      font-size: 3rem;
+      cursor: pointer;
+      padding: 0 1rem;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Admin - Galeri Yönetimi</h1>
+  </header>
+
+  <nav>
+    <a href="admin-panel.html">⬅️ Admin Panel</a>
+    <a href="galeri.html">🖼️ Galeri Sayfası</a>
+  </nav>
+
+  <main>
+    <h2>Yeni Fotoğraf Ekle</h2>
+    <input type="text" id="fotoBaslik" placeholder="Fotoğraf Başlığı">
+    <input type="text" id="fotoUrl" placeholder="Fotoğraf Dosya Adı (örnek.jpg)">
+    <button onclick="galeriyeEkle()">➕ Galeriye Ekle</button>
+
+    <div class="preview" id="galeriOnizleme"></div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-nav">
+      <span onclick="onceki()">❮</span>
+      <span onclick="sonraki()">❯</span>
+    </div>
+    <img id="lightbox-img" src="">
+  </div>
+
+  <script>
+    let aktifIndex = 0;
+    let galeriVeri = [];
+
+    function galeriyeEkle() {
+      const baslik = document.getElementById("fotoBaslik").value.trim();
+      const url = document.getElementById("fotoUrl").value.trim();
+
+      if (!baslik || !url) {
+        alert("Tüm alanları doldurun!");
+        return;
+      }
+
+      if (!url.match(/\.(jpg|jpeg|png)$/i)) {
+        alert("Lütfen geçerli bir resim uzantısı (.jpg, .jpeg, .png) girin.");
+        return;
+      }
+
+      const yeni = { baslik, url };
+      const onceki = JSON.parse(localStorage.getItem("galeri")) || [];
+      onceki.push(yeni);
+      localStorage.setItem("galeri", JSON.stringify(onceki));
+
+      alert("Fotoğraf eklendi.");
+      window.location.reload();
+    }
+
+    function goster(index) {
+      const img = document.getElementById("lightbox-img");
+      img.src = "images/" + galeriVeri[index].url;
+      aktifIndex = index;
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function onceki() {
+      aktifIndex = (aktifIndex - 1 + galeriVeri.length) % galeriVeri.length;
+      goster(aktifIndex);
+    }
+
+    function sonraki() {
+      aktifIndex = (aktifIndex + 1) % galeriVeri.length;
+      goster(aktifIndex);
+    }
+
+    window.onload = () => {
+      galeriVeri = JSON.parse(localStorage.getItem("galeri")) || [];
+      const container = document.getElementById("galeriOnizleme");
+
+      galeriVeri.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+          <p><strong>${item.baslik}</strong></p>
+          <img src="images/${item.url}" onclick="goster(${index})">
+          <hr>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById("lightbox").addEventListener("click", function (e) {
+        if (e.target.id === "lightbox" || e.target.tagName === "SPAN") {
+          this.style.display = "none";
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

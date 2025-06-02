@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tuana Sitesi Galeri</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+    .gallery img {
+      width: 150px;
+      height: auto;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    details {
+      margin-bottom: 1.5rem;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+    summary {
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+    }
+    .lightbox .close, .lightbox .prev, .lightbox .next {
+      position: absolute;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .lightbox .close {
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      transform: none;
+    }
+    .lightbox .prev { left: 30px; }
+    .lightbox .next { right: 30px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📸 Tuana Sitesi Galeri</h1>
+    <nav>
+      <a href="index.html">Ana Sayfa</a>
+      <a href="admin-galeri.html">Galeri Yönetimi</a>
+    </nav>
+  </header>
+  <main>
+    <section class="gallery-section">
+      <details open>
+        <summary>🛗 Asansör Çalışması</summary>
+        <div class="gallery">
+          <img src="images/asansor1.jpg" onclick="openLightbox(0)">
+          <img src="images/asansor2.jpg" onclick="openLightbox(1)">
+          <img src="images/asansor3.jpg" onclick="openLightbox(2)">
+        </div>
+      </details>
+      <details>
+        <summary>🎨 Boya Çalışması</summary>
+        <div class="gallery">
+          <img src="images/boya1.jpg" onclick="openLightbox(3)">
+          <img src="images/boya2.jpg" onclick="openLightbox(4)">
+          <img src="images/boya3.jpg" onclick="openLightbox(5)">
+        </div>
+      </details>
+      <details>
+        <summary>🛠️ Küpeşte Bakımı</summary>
+        <div class="gallery">
+          <img src="images/kupeste-bakim1.jpg" onclick="openLightbox(6)">
+          <img src="images/kupeste-bakim2.jpg" onclick="openLightbox(7)">
+          <img src="images/kupeste-bakim3.jpg" onclick="openLightbox(8)">
+          <img src="images/kupeste-bakim4.jpg" onclick="openLightbox(9)">
+          <img src="images/kupeste-bakim5.jpg" onclick="openLightbox(10)">
+          <img src="images/kupeste-bakim6.jpg" onclick="openLightbox(11)">
+        </div>
+      </details>
+    </section>
+    <div class="lightbox" id="lightbox">
+      <span class="close" onclick="closeLightbox()">✖</span>
+      <span class="prev" onclick="changeSlide(-1)">❮</span>
+      <img id="lightbox-img" src="">
+      <span class="next" onclick="changeSlide(1)">❯</span>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2025 Tuana Sitesi Yönetimi</p>
+  </footer>
+  <script>
+    const images = [
+      "images/asansor1.jpg",
+      "images/asansor2.jpg",
+      "images/asansor3.jpg",
+      "images/boya1.jpg",
+      "images/boya2.jpg",
+      "images/boya3.jpg",
+      "images/kupeste-bakim1.jpg",
+      "images/kupeste-bakim2.jpg",
+      "images/kupeste-bakim3.jpg",
+      "images/kupeste-bakim4.jpg",
+      "images/kupeste-bakim5.jpg",
+      "images/kupeste-bakim6.jpg"
+    ];
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      document.getElementById("lightbox").style.display = "flex";
+      document.getElementById("lightbox-img").src = images[currentIndex];
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    function changeSlide(n) {
+      currentIndex += n;
+      if (currentIndex < 0) currentIndex = images.length - 1;
+      if (currentIndex >= images.length) currentIndex = 0;
+      document.getElementById("lightbox-img").src = images[currentIndex];
+    }
+  </script>
+</body>
+</html>

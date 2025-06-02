@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Ödeme Takibi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+      margin-bottom: 1rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #004466;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #006699;
+    }
+
+    ul#odemeListesi {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <script src="js/auth.js"></script>
+
+  <header>
+    <h1>💳 Admin - Ödeme Takibi</h1>
+  </header>
+
+  <main>
+    <h2>Yeni Ödeme Kaydı</h2>
+    <input type="text" id="adSoyad" placeholder="Ad Soyad">
+    <input type="text" id="blokDaire" placeholder="Blok / Daire No">
+    <input type="number" id="tutar" placeholder="Ödenen Tutar (TL)">
+    <button onclick="odemeEkle()">Kaydet</button>
+
+    <h3>Kayıtlı Ödemeler</h3>
+    <ul id="odemeListesi"></ul>
+
+    <a href="admin-panel.html" class="back-link">← Admin Paneline Dön</a>
+  </main>
+
+  <script>
+    function odemeEkle() {
+      const ad = document.getElementById("adSoyad").value.trim();
+      const daire = document.getElementById("blokDaire").value.trim();
+      const tutar = document.getElementById("tutar").value.trim();
+
+      if (!ad || !daire || !tutar) {
+        alert("Lütfen tüm alanları doldurunuz.");
+        return;
+      }
+
+      const odeme = { ad, daire, tutar, tarih: new Date().toLocaleDateString("tr-TR") };
+      const mevcut = JSON.parse(localStorage.getItem("odemeler")) || [];
+      mevcut.push(odeme);
+      localStorage.setItem("odemeler", JSON.stringify(mevcut));
+
+      alert("Ödeme kaydedildi.");
+      window.location.reload();
+    }
+
+    window.onload = () => {
+      const liste = document.getElementById("odemeListesi");
+      const odemeler = JSON.parse(localStorage.getItem("odemeler")) || [];
+      odemeler.forEach(o => {
+        const li = document.createElement("li");
+        li.textContent = `${o.tarih} - ${o.ad} (${o.daire}): ${o.tutar} TL`;
+        liste.appendChild(li);
+      });
+    }
+  </script>
+
+</body>
+</html>

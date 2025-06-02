@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yönetici Girişi - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #4f91c3, #1d5a8f);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .giris-kutu {
+      background-color: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 300px;
+      text-align: center;
+    }
+
+    .giris-kutu h2 {
+      margin-bottom: 20px;
+      color: #004466;
+    }
+
+    .giris-kutu input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .giris-kutu button {
+      width: 100%;
+      padding: 10px;
+      background-color: #004466;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .giris-kutu button:hover {
+      background-color: #006699;
+    }
+
+    .geri {
+      margin-top: 15px;
+      display: inline-block;
+      color: #004466;
+      text-decoration: none;
+    }
+
+    .geri:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="giris-kutu">
+    <h2>Yönetici Girişi</h2>
+    <form onsubmit="girisYap(); return false;">
+      <input type="text" id="kullaniciAdi" placeholder="Kullanıcı Adı" required>
+      <input type="password" id="sifre" placeholder="Şifre" required>
+      <button type="submit">Giriş Yap</button>
+    </form>
+    <a class="geri" href="index.html">← Ana Sayfa</a>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

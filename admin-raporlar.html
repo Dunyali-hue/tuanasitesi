@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Rapor Yükleme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="file"] {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    ul#reportList {
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      background-color: #004466;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #006699;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Yetki kontrolü -->
+  <script src="js/auth.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem("girisYapan"));
+    if (!user || user.rol !== "admin") {
+      alert("Bu sayfaya sadece yönetici erişebilir.");
+      window.location.href = "giris.html";
+    }
+  </script>
+
+  <header>
+    <h1>📄 Admin - Rapor Yükleme</h1>
+  </header>
+
+  <main>
+    <h2>Yeni Faaliyet Raporu Ekle</h2>
+
+    <label for="pdfUpload">PDF Dosyası:</label><br>
+    <input type="file" id="pdfUpload" accept="application/pdf"><br>
+    <button class="btn" onclick="addReport()">Yükle</button>
+
+    <h3>Yüklenen Raporlar:</h3>
+    <ul id="reportList">
+      <!-- Yeni yüklenenler burada listelenir -->
+    </ul>
+
+    <a href="admin-panel.html" class="back-link">← Admin Paneline Dön</a>
+  </main>
+
+  <script>
+    function addReport() {
+      const fileInput = document.getElementById('pdfUpload');
+      const file = fileInput.files[0];
+      const reportList = document.getElementById('reportList');
+
+      if (file && file.type === 'application/pdf') {
+        const li = document.createElement('li');
+        li.textContent = file.name + ' (Yalnızca simülasyon - kaydedilmedi)';
+        reportList.appendChild(li);
+        fileInput.value = '';
+      } else {
+        alert('Lütfen bir PDF dosyası seçin.');
+      }
+    }
+  </script>
+
+</body>
+</html>

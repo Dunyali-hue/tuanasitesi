@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ulaşım - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+    }
+
+    .accordion {
+      background-color: #eee;
+      color: #004466;
+      cursor: pointer;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      font-size: 16px;
+      transition: 0.4s;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    .active, .accordion:hover {
+      background-color: #ccc;
+    }
+
+    .panel {
+      padding: 0 15px;
+      display: none;
+      background-color: white;
+      overflow: hidden;
+      margin-bottom: 10px;
+      border-left: 3px solid #004466;
+    }
+
+    .icon {
+      margin-right: 10px;
+      color: #004466;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚌 Tuana Sitesi Ulaşım Bilgileri</h1>
+  </header>
+
+  <main>
+    <h2>Ulaşım Seçenekleri</h2>
+
+    <button class="accordion"><i class="fas fa-bus icon"></i> Toplu Taşıma</button>
+    <div class="panel">
+      <p>Tuana Sitesi çevresinden geçen otobüs hatları: <strong>120, 145, 221</strong>. Ayrıca minibüsler her 15 dakikada bir geçmektedir.</p>
+    </div>
+
+    <button class="accordion"><i class="fas fa-car icon"></i> Özel Araç</button>
+    <div class="panel">
+      <p>Sitenin çevresinde ücretsiz otopark alanları mevcuttur. Navigasyon için konum bilgimizi kullanabilirsiniz.</p>
+    </div>
+
+    <button class="accordion"><i class="fas fa-bicycle icon"></i> Bisiklet</button>
+    <div class="panel">
+      <p>Bisiklet park alanlarımız mevcuttur. Site içi ulaşım için bisiklet kullanımı teşvik edilmektedir.</p>
+    </div>
+
+    <a class="back-link" href="index.html">← Ana Sayfaya Dön</a>
+  </main>
+
+  <script>
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+      });
+    }
+  </script>
+
+</body>
+</html>

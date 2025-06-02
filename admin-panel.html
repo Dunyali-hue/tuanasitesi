@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yönetici Paneli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #004466;
+      font-weight: bold;
+    }
+    main {
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .panel-card {
+      background: #f2f2f2;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .panel-card a {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: #004466;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Yetki kontrolü -->
+  <script src="js/auth.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem("girisYapan"));
+    if (!user || user.rol !== "admin") {
+      alert("Bu sayfaya sadece yönetici erişebilir.");
+      window.location.href = "giris.html";
+    }
+  </script>
+
+  <header>
+    <h1>Yönetici Paneli</h1>
+  </header>
+
+  <nav>
+    <a href="admin-duyurular.html">📢 Duyuru Ekle</a>
+    <a href="admin-odeme.html">💳 Ödeme Takibi</a>
+    <a href="admin-raporlar.html">📄 Rapor Yükle</a>
+    <a href="index.html">🏠 Ana Sayfa</a>
+  </nav>
+
+  <main>
+    <div class="panel-card">
+      <h2>Yeni Duyuru Ekle</h2>
+      <p>Duyuru eklemek için <a href="admin-duyurular.html">buraya tıklayın</a>.</p>
+    </div>
+    <div class="panel-card">
+      <h2>Ödeme Bilgileri</h2>
+      <p>Site aidat ve ödeme bilgilerini görüntülemek için <a href="admin-odeme.html">buraya tıklayın</a>.</p>
+    </div>
+    <div class="panel-card">
+      <h2>Rapor Yükle</h2>
+      <p>Yeni PDF rapor yüklemek için <a href="admin-raporlar.html">buraya tıklayın</a>.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Tuana Sitesi Yönetimi
+  </footer>
+
+</body>
+</html>

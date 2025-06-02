@@ -1,0 +1,111 @@
+<!-- odeme.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ödeme Bilgileri - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 2rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>💳 Ödeme Bilgileri</h1>
+  </header>
+
+  <main>
+    <h2>Aidat ve Katkı Payı Ödemeleri</h2>
+    <table id="odemeTablosu">
+      <thead>
+        <tr>
+          <th>Ad Soyad</th>
+          <th>Daire</th>
+          <th>Tarih</th>
+          <th>Tutar</th>
+          <th>Açıklama</th>
+        </tr>
+      </thead>
+      <tbody id="odemeBody">
+        <!-- Ödemeler JS ile buraya gelecek -->
+      </tbody>
+    </table>
+    <div id="noDataMessage" class="no-data" style="display:none;">Henüz ödeme bilgisi girilmemiş.</div>
+  </main>
+
+  <script>
+    window.onload = () => {
+      const odemeler = JSON.parse(localStorage.getItem("odemeler")) || [];
+      const tbody = document.getElementById("odemeBody");
+      const noDataMsg = document.getElementById("noDataMessage");
+
+      if (odemeler.length === 0) {
+        noDataMsg.style.display = "block";
+        return;
+      }
+
+      odemeler.reverse().forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.adSoyad}</td>
+          <td>${item.daire}</td>
+          <td>${item.tarih}</td>
+          <td>${item.tutar} ₺</td>
+          <td>${item.aciklama}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    };
+  </script>
+
+</body>
+</html>

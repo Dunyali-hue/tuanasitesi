@@ -1,0 +1,87 @@
+<!-- duyurular.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Duyurular - Tuana Sitesi</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004466;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #004466;
+      margin-bottom: 1rem;
+    }
+
+    .duyuru {
+      border-bottom: 1px solid #ccc;
+      padding: 1rem 0;
+    }
+
+    .duyuru h3 {
+      margin: 0 0 0.5rem 0;
+      color: #222;
+    }
+
+    .duyuru p {
+      margin: 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📢 Duyurular</h1>
+  </header>
+
+  <main>
+    <h2>Site Yönetiminden En Son Duyurular</h2>
+    <div id="duyuruListesi"></div>
+  </main>
+
+  <script>
+    window.onload = () => {
+      const duyurular = JSON.parse(localStorage.getItem("duyurular")) || [];
+      const container = document.getElementById("duyuruListesi");
+
+      if (duyurular.length === 0) {
+        container.innerHTML = "<p>Henüz duyuru bulunmamaktadır.</p>";
+        return;
+      }
+
+      duyurular.reverse().forEach(duyuru => {
+        const div = document.createElement("div");
+        div.className = "duyuru";
+        div.innerHTML = `
+          <h3>${duyuru.baslik}</h3>
+          <p>${duyuru.icerik}</p>
+        `;
+        container.appendChild(div);
+      });
+    };
+  </script>
+
+</body>
+</html>
