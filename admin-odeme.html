@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Admin - Ödeme Takibi</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background-color: #f5f5f5;
     }
 
     header {
@@ -19,30 +19,31 @@
       text-align: center;
     }
 
+    header h1 {
+      color: white;
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 2px black;
+    }
+
     main {
       max-width: 600px;
       margin: 2rem auto;
       background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    input {
+    input, button {
       width: 100%;
       padding: 10px;
-      margin-bottom: 1rem;
+      margin-top: 10px;
       font-size: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
     }
 
     button {
-      width: 100%;
-      padding: 10px;
       background-color: #004466;
       color: white;
-      font-size: 1rem;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -52,17 +53,14 @@
       background-color: #006699;
     }
 
-    h2 {
-      color: #004466;
-    }
-
     ul {
+      margin-top: 20px;
       padding-left: 1.2rem;
     }
 
-    .back {
+    .geri {
       display: inline-block;
-      margin-top: 1.5rem;
+      margin-top: 20px;
       text-decoration: none;
       color: #004466;
       font-weight: bold;
@@ -70,59 +68,58 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>💳 Admin - Ödeme Takibi</h1>
   </header>
 
   <main>
     <h2>Yeni Ödeme Kaydı</h2>
-    <input type="text" id="ad" placeholder="Ad Soyad" />
-    <input type="text" id="daire" placeholder="Blok / Daire No" />
-    <input type="number" id="tutar" placeholder="Ödenen Tutar (TL)" />
-    <button onclick="kaydet()">Kaydet</button>
+    <input type="text" id="adSoyad" placeholder="Ad Soyad">
+    <input type="text" id="blokDaire" placeholder="Blok / Daire No">
+    <input type="number" id="tutar" placeholder="Ödenen Tutar (TL)">
+    <button onclick="odemeEkle()">Kaydet</button>
 
     <h3>Kayıtlı Ödemeler</h3>
     <ul id="odemeListesi"></ul>
 
-    <a class="back" href="admin-panel.html">← Admin Paneline Dön</a>
+    <a class="geri" href="admin-panel.html">← Admin Paneline Dön</a>
   </main>
 
-  <script src="js/auth.js"></script>
   <script>
-    function kaydet() {
-      const ad = document.getElementById("ad").value.trim();
-      const daire = document.getElementById("daire").value.trim();
-      const tutar = document.getElementById("tutar").value.trim();
-      const zaman = new Date().toLocaleString();
+    const user = JSON.parse(localStorage.getItem("girisYapan"));
+    if (!user || user.rol !== "admin") {
+      alert("Bu sayfa sadece yöneticilere özeldir.");
+      window.location.href = "index.html";
+    }
+
+    function odemeEkle() {
+      const ad = document.getElementById("adSoyad").value;
+      const daire = document.getElementById("blokDaire").value;
+      const tutar = document.getElementById("tutar").value;
 
       if (!ad || !daire || !tutar) {
-        alert("Lütfen tüm alanları doldurun.");
+        alert("Tüm alanları doldurunuz.");
         return;
       }
 
-      const odeme = { ad, daire, tutar, zaman };
-      const kayitlar = JSON.parse(localStorage.getItem("odemeler")) || [];
-      kayitlar.push(odeme);
-      localStorage.setItem("odemeler", JSON.stringify(kayitlar));
-
-      guncelleListe();
-      document.getElementById("ad").value = "";
-      document.getElementById("daire").value = "";
-      document.getElementById("tutar").value = "";
+      const yeni = { ad, daire, tutar, tarih: new Date().toLocaleDateString() };
+      const onceki = JSON.parse(localStorage.getItem("odemeler")) || [];
+      onceki.push(yeni);
+      localStorage.setItem("odemeler", JSON.stringify(onceki));
+      location.reload();
     }
 
-    function guncelleListe() {
-      const liste = document.getElementById("odemeListesi");
-      liste.innerHTML = "";
+    window.onload = () => {
       const odemeler = JSON.parse(localStorage.getItem("odemeler")) || [];
-      odemeler.slice().reverse().forEach((o) => {
+      const liste = document.getElementById("odemeListesi");
+      odemeler.slice().reverse().forEach(o => {
         const li = document.createElement("li");
-        li.textContent = `${o.ad} (${o.daire}) → ${o.tutar} TL - ${o.zaman}`;
+        li.textContent = `${o.ad} (${o.daire}) – ${o.tutar} TL [${o.tarih}]`;
         liste.appendChild(li);
       });
-    }
-
-    window.onload = guncelleListe;
+    };
   </script>
+
 </body>
 </html>
