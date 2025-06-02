@@ -6,11 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #0077cc;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #005fa3;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      padding: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      background-color: #004c82;
+    }
+
     main {
       padding: 2rem;
       max-width: 1000px;
       margin: auto;
     }
+
     .hero {
       background: url('images/banner.jpg') center/cover no-repeat;
       height: 300px;
@@ -22,39 +53,14 @@
       font-weight: bold;
       text-shadow: 2px 2px 5px black;
       border-radius: 10px;
-      margin-bottom: 2rem;
-    }
-    .panel {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-    }
-    .panel h2 {
-      color: #004466;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: #666;
-      font-size: 0.9rem;
-    }
-    #girisKisi {
-      float: right;
-      font-weight: bold;
-      color: #004466;
-      margin-top: -2.5rem;
-      margin-right: 2rem;
+      margin: 1rem 0;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <img src="images/logo.jpg" alt="Tuana Sitesi Logo" style="height: 50px;">
     <h1>Tuana Sitesi</h1>
-    <div id="girisKisi"></div>
   </header>
 
   <nav>
@@ -63,56 +69,16 @@
     <a href="odeme.html">Ödeme</a>
     <a href="galeri.html">Galeri</a>
     <a href="raporlar.html">Raporlar</a>
-    <a href="iletisim.html">İletişim</a>
     <a href="hakkimizda.html">Hakkımızda</a>
-    <a href="yonetim.html">Yönetim</a>
-    <a href="konum.html">Konum</a>
     <a href="ulasim.html">Ulaşım</a>
-    <a href="admin.html">🔐 Giriş</a>
+    <a href="konum.html">Konum</a>
+    <a href="yonetim.html">Yönetim</a>
   </nav>
 
   <main>
-    <div class="hero">
-      Tuana Sitesi'ne Hoş Geldiniz
-    </div>
-
-    <div class="panel">
-      <h2>Son Duyurular</h2>
-      <ul id="duyuruListesi"></ul>
-    </div>
-
-    <div class="panel">
-      <h2>Bilgilendirme</h2>
-      <p>
-        Tuana Sitesi'nin resmi dijital platformundasınız. Tüm duyurular, ödeme bilgilendirmeleri, yönetim yapısı, iletişim ve lokasyon bilgilerine buradan erişebilirsiniz.
-      </p>
-    </div>
+    <div class="hero">Sitemize Hoş Geldiniz</div>
+    <p>Tuana Sitesi sakinlerine özel web portalımıza hoş geldiniz. Duyurular, ödeme bilgileri ve daha fazlası burada!</p>
   </main>
-
-  <footer>
-    &copy; 2025 Tuana Sitesi Yönetimi
-  </footer>
-
-  <script>
-    const user = JSON.parse(localStorage.getItem("girisYapan"));
-    const girisKisi = document.getElementById("girisKisi");
-    if (user) {
-      girisKisi.textContent = "👤 " + user.ad;
-    }
-
-    const duyurular = JSON.parse(localStorage.getItem("duyurular")) || [];
-    const liste = document.getElementById("duyuruListesi");
-
-    if (duyurular.length === 0) {
-      liste.innerHTML = "<li>Henüz duyuru yok.</li>";
-    } else {
-      duyurular.slice().reverse().forEach(d => {
-        const li = document.createElement("li");
-        li.textContent = `${d.baslik} (${d.tarih})`;
-        liste.appendChild(li);
-      });
-    }
-  </script>
 
 </body>
 </html>
